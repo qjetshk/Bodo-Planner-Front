@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: 'Bōdo - Канбан-доска',
   description: 'Визуальный планировщик задач с канбан-доской',
   keywords: ['канбан', 'планировщик', 'задачи', 'проекты'],
+  icons: '/logo.svg'
 };
 
 export default function RootLayout({
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable, geistMono.variable, unbounded.variable} bg-neutral-950 `}
+        className={`${geistSans.variable, geistMono.variable, unbounded.variable} bg-neutral-950 text-white`}
       >
         {children}
       </body>

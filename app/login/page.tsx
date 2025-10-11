@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterLoginForm } from "../types/login-reg-form.types";
+import { RegisterLoginForm } from "../../types/login-reg-form.types";
 import Link from "next/link";
-import Image from "next/image";
-import TypingAnimation from "@/components/TypeWriter";
-
+import { BgImage } from "@/components/BgImage";
+import { BgSection } from "@/components/BgSection";
+import { motion } from "motion/react";
 
 export default function RegisterPage() {
   const {
@@ -25,7 +25,14 @@ export default function RegisterPage() {
   return (
     <main className="w-full h-[100vh] lg:grid grid-cols-2 flex justify-center text-white">
       <section className="w-full flex justify-end items-center">
-        <form
+        <motion.form
+          initial={{ y: 10, opacity: 0, filter: "blur(5px)" }}
+          animate={{
+            y: 0,
+            opacity: 1,
+            filter: "none",
+            transition: { duration: 0.4 },
+          }}
           onSubmit={handleSubmit(onSubmit)}
           className="max-w-[300px] flex lg:mr-[15%] mx-auto flex-col gap-5 w-[-webkit-fill-available] z-100"
         >
@@ -67,54 +74,38 @@ export default function RegisterPage() {
           <Button
             type="submit"
             variant={"secondary"}
-            className="text-lg h-auto"
+            className="text-lg h-auto w-full"
           >
             Войти
           </Button>
-          <Button disabled className="">
+
+          <Button disabled className="w-full">
             Войти через Google
           </Button>
+
           <span className="text-sm mx-auto">
             Еще нет аккаунта?{" "}
             <Link className="text-neutral-500" href={"/register"}>
-              Зарегестрируйтесь!
+              Зарегистрируйтесь!
             </Link>
           </span>
-        </form>
-        <Image
-          src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2EwNjVrbGdydDhxZTVveWoydmJ1a3F2Zm13MnNlaW9taWFsb2dmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fx4zxFLVDAluXnk4qH/giphy.gif"
-          alt="Background"
-          fill
-          className="object-cover lg:hidden select-none pointer-events-none draggable-false"
-          unoptimized
-          priority
-        />
+        </motion.form>
+
+        <motion.div
+          className="lg:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 2 } }}
+        >
+          <BgImage />
+        </motion.div>
       </section>
 
-      <section className="hidden lg:block relative w-full h-full ">
-        <Image
-          src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2EwNjVrbGdydDhxZTVveWoydmJ1a3F2Zm13MnNlaW9taWFsb2dmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fx4zxFLVDAluXnk4qH/giphy.gif"
-          alt="Background"
-          fill
-          className="object-cover select-none pointer-events-none draggable-false "
-          unoptimized
-          priority
-        />
-        <TypingAnimation
-          words={[
-            `<strong style="font-size: 110px; color: white; font-style: normal;">Bōdo</strong>`,
-            "ボード",
-            "Organize",
-            "Plan",
-            "プラン",
-            "Track",
-            "Manage",
-            "Focus",
-            "Flow",
-            "Visualize",
-          ]}
-        />
-      </section>
+      <motion.div
+        initial={{ opacity: 0, filter: "blur(20px)" }}
+        animate={{ opacity: 1, filter: "none", transition: { duration: 2 } }}
+      >
+        <BgSection style="hidden lg:block" textStyle="" />
+      </motion.div>
     </main>
   );
 }
