@@ -4,12 +4,13 @@ import { BgSection } from "@/components/BgSection";
 import { MotionDiv } from "@/components/MotionDiv";
 import RegisterForm from "./RegisterForm";
 import { Metadata } from "next";
+import { MoveLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Bōdo - Зарегистрироваться',
-  description: 'Создать аккаунт в Bōdo Planner',
-  keywords: ['зарегистрироваться', 'создать аккаунт', 'зарегаться'],
-  icons: '/logo.svg'
+  title: "Bōdo - Зарегистрироваться",
+  description: "Создать аккаунт в Bōdo Planner",
+  keywords: ["зарегистрироваться", "создать аккаунт", "зарегаться"],
+  icons: "/logo.svg",
 };
 
 export default function RegisterPage() {
@@ -26,7 +27,7 @@ export default function RegisterPage() {
           }}
           className="max-w-[300px] lg:mr-[15%] mx-auto w-[-webkit-fill-available] z-100"
         >
-         <RegisterForm/>
+          <RegisterForm />
         </MotionDiv>
 
         <MotionDiv
@@ -34,6 +35,13 @@ export default function RegisterPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 2 } }}
         >
+          <Link href={"/"}>
+            <MoveLeft
+              width={28}
+              height={28}
+              className="absolute top-5 left-5 z-100"
+            />
+          </Link>
           <BgImage />
         </MotionDiv>
       </section>
