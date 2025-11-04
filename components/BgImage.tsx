@@ -6,10 +6,12 @@ export function BgImage() {
       src="/BG.webp"
       alt="Background"
       fill
-      className="object-cover select-none pointer-events-none"
-      priority 
-      quality={80} 
-      unoptimized={false} 
+      className="object-cover bg-cover select-none pointer-events-none draggable-false blur-[10px]"
+      loading="eager" // Измените на eager для фоновых изображений
+      quality={5} // Еще больше снизьте качество
+      priority={true} // Для критически важных изображений
+      unoptimized={false} // Дать Next.js оптимизировать
     />
+    
   );
 }

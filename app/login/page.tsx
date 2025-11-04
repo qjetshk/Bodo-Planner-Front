@@ -1,31 +1,22 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterLoginForm } from "../../types/login-reg-form.types";
 import Link from "next/link";
 import { BgImage } from "@/components/BgImage";
 import { BgSection } from "@/components/BgSection";
-import { motion } from "motion/react";
+import { MotionDiv } from "@/components/MotionDiv";
+import LoginForm from "./LoginForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Bōdo - Войти',
+  description: 'Войти в Bōdo Planner',
+  keywords: ['войти', 'авторизироваться', 'залогиниться', 'зайти', "войти в аккаунт"],
+  icons: '/logo.svg'
+};
 
 export default function RegisterPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterLoginForm>({
-    resolver: zodResolver(RegisterLoginForm),
-  });
-
-  const onSubmit: SubmitHandler<RegisterLoginForm> = (data) => {
-    console.log(data);
-  };
-
   return (
     <main className="w-full h-[100vh] lg:grid grid-cols-2 flex justify-center text-white">
       <section className="w-full flex justify-end items-center">
-        <motion.form
+        <MotionDiv
           initial={{ y: 10, opacity: 0, filter: "blur(5px)" }}
           animate={{
             y: 0,
@@ -33,79 +24,23 @@ export default function RegisterPage() {
             filter: "none",
             transition: { duration: 0.4 },
           }}
-          onSubmit={handleSubmit(onSubmit)}
-          className="max-w-[300px] flex lg:mr-[15%] mx-auto flex-col gap-5 w-[-webkit-fill-available] z-100"
+          className="max-w-[300px] lg:mr-[15%] mx-auto w-[-webkit-fill-available] z-100"
         >
-          <h1 className="text-2xl text-center font-unbounded">Вход</h1>
-          <div>
-            {errors.email && (
-              <span className="text-sm text-red-400">
-                {errors.email.message}
-              </span>
-            )}
-            <Input
-              {...register("email")}
-              placeholder="Введите email"
-              type="text"
-              className={
-                errors.email &&
-                "border-red-400 text-red-400 placeholder:text-red-400 focus-visible:border-red-400!"
-              }
-            ></Input>
-          </div>
+          <LoginForm />
+        </MotionDiv>
 
-          <div>
-            {errors.password && (
-              <span className="text-sm text-red-400">
-                {errors.password.message}
-              </span>
-            )}
-            <Input
-              {...register("password")}
-              placeholder="Введите пароль"
-              type="password"
-              className={
-                errors.password &&
-                "border-red-400 placeholder:text-red-400 text-red-400 focus-visible:border-red-400!"
-              }
-            ></Input>
-          </div>
-
-          <Button
-            type="submit"
-            variant={"secondary"}
-            className="text-lg h-auto w-full"
-          >
-            Войти
-          </Button>
-
-          <Button disabled className="w-full">
-            Войти через Google
-          </Button>
-
-          <span className="text-sm mx-auto">
-            Еще нет аккаунта?{" "}
-            <Link className="text-neutral-500" href={"/register"}>
-              Зарегистрируйтесь!
-            </Link>
-          </span>
-        </motion.form>
-
-        <motion.div
+        <MotionDiv
           className="lg:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 2 } }}
         >
           <BgImage />
-        </motion.div>
+        </MotionDiv>
       </section>
 
-      <motion.div
-        initial={{ opacity: 0, filter: "blur(20px)" }}
-        animate={{ opacity: 1, filter: "none", transition: { duration: 2 } }}
-      >
+      <Link href={"/"}>
         <BgSection style="hidden lg:block" textStyle="" />
-      </motion.div>
+      </Link>
     </main>
   );
 }
