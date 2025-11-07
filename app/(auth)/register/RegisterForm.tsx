@@ -22,25 +22,33 @@ export const RegisterForm: React.FC = () => {
   const [reg, { isLoading }] = useRegisterMutation();
 
   const onSubmit: SubmitHandler<RegisterLoginForm> = async (formData) => {
-    console.log(formData)
+    console.log(formData);
     try {
-      const result = await reg(formData).unwrap(); 
-      toast.success(result.message || "Регистрация прошла успешно!", {duration: 2000});
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Ошибка при регистрации", {duration: 2000});
+      const result = await reg(formData).unwrap();
+      toast.success(result.message || "Регистрация прошла успешно!", {
+        duration: 2000,
+      });
+    } catch (err: unknown) {
+      if (typeof err === "object" && err !== null && "data" in err) {
+        const apiError = err as { data?: { message?: string } };
+        toast.error(apiError.data?.message || "Ошибка при регистрации", {
+          duration: 2000,
+        });
+      } else {
+        toast.error("Ошибка при регистрации", { duration: 2000 });
+      }
     }
   };
 
   return (
-    <form
-      className="flex flex-col gap-5"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-2xl text-center font-unbounded">Регистрация</h1>
 
       <div>
         {errors.nickName && (
-          <span className="text-sm text-red-400">{errors.nickName.message}</span>
+          <span className="text-sm text-red-400">
+            {errors.nickName.message}
+          </span>
         )}
         <Input
           {...registerInput("nickName")}
@@ -70,7 +78,9 @@ export const RegisterForm: React.FC = () => {
 
       <div>
         {errors.password && (
-          <span className="text-sm text-red-400">{errors.password.message}</span>
+          <span className="text-sm text-red-400">
+            {errors.password.message}
+          </span>
         )}
         <Input
           {...registerInput("password")}

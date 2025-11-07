@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useLoginMutation } from "@/store/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { SerializedError } from "@reduxjs/toolkit";
 
 type LoginRequest = Omit<RegisterLoginForm, "nickName">;
 
@@ -29,12 +31,17 @@ export const LoginForm: React.FC = () => {
     console.log(formData);
     try {
       await login(formData).unwrap();
-      toast.success("Вы успешно вошли!", {duration: 1000});
+      toast.success("Вы успешно вошли!", { duration: 1000 });
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Ошибка при регистрации");
+    } catch (err: unknown) {
+      if (typeof err === "object" && err && "data" in err) {
+        const apiError = err as { data?: { message?: string } };
+        toast.error(apiError.data?.message || "Ошибка при входе");
+      } else {
+        toast.error("Неизвестная ошибка");
+      }
     }
   };
 
