@@ -22,24 +22,11 @@ export interface NavMainItem {
   items?: NavSubItem[];
 }
 
-export interface UserData {
-  name: string;
-  email: string;
-  avatar: string;
-}
-
 export interface SidebarData {
-  user: UserData;
   navMain: NavMainItem[];
 }
 
 export const MENU_BAR: SidebarData = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-
   navMain: [
     {
       title: "Туду",

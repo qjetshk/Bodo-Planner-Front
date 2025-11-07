@@ -16,13 +16,15 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { MENU_BAR } from "@/data/menubar.data";
+import { useGetMeQuery } from "@/store/auth";
 
 // This is sample data.
-const data = MENU_BAR;
+const menu_data = MENU_BAR;
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const isActive = state === "expanded";
+  const { isLoading, data } = useGetMeQuery();
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -36,11 +38,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={menu_data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      <SidebarFooter>{data && <NavUser user={data} />}</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
