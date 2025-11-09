@@ -41,7 +41,7 @@ const DashBoardLayout = ({
           <SidebarInset>
             <DashBoardHeader />
             <Separator />
-            <section className="p-5">{children}</section>
+            <section className="p-5 w-full h-full">{children}</section>
           </SidebarInset>
         </SidebarProvider>
       </motion.section>

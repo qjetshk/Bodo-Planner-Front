@@ -6,6 +6,8 @@ export interface User {
   nickName: string;
   avatarUrl: string;
   password: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 export type RegisterRequest = RegisterLoginForm;

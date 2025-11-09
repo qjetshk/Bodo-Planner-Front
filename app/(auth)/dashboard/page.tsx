@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import React from "react";
+import HelloPage from "./HelloPage";
 
 export const metadata: Metadata = {
   title: "Bōdo - Дашбоард",
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
 };
 
 const DashBoardPage = () => {
-  return <div>xcgxbc</div>;
+
+
+  return (
+    <HelloPage/>
+  );
 };
 
 export default DashBoardPage;

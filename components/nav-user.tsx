@@ -29,6 +29,9 @@ import { User } from "@/types/auth.type";
 import { useLogoutMutation } from "@/store/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Dialog, DialogTrigger } from "./ui/dialog";
+import Account from "./Account";
+import NotificationsModal from "./NotificationsModal";
 
 export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
@@ -45,7 +48,7 @@ export function NavUser({ user }: { user: User }) {
   const handleLogout = async () => {
     try {
       await logout();
-      toast.success("Вы успешно вышли!", {duration: 1000});
+      toast.success("Вы успешно вышли!", { duration: 1000 });
       setTimeout(() => {
         router.push("/login");
       }, 1000);
@@ -105,19 +108,27 @@ export function NavUser({ user }: { user: User }) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    <BadgeCheck />
+                    Аккаунт
+                  </DropdownMenuItem>
+                </DialogTrigger>
+                <Account />
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    <Bell />
+                    Уведомления
+                  </DropdownMenuItem>
+                </DialogTrigger>
+                <NotificationsModal/>
+              </Dialog>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
             <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               <LogOut />
