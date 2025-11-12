@@ -10,8 +10,9 @@ let failedRequests: Array<() => void> = [];
 
 const refreshAccessToken = async () => {
   try {
-    await api.post("/refresh");
-    return true;
+    const result = await api.post("/refresh");
+    const {data} = result
+    localStorage.setItem("accessToken", data.accessToken);
   } catch (error) {
     throw new Error("Failed to refresh token");
   }
@@ -34,6 +35,8 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
+        localStorage.removeItem('user')
+        console.log('sdfsd')
         await refreshAccessToken();
         failedRequests.forEach((cb) => cb());
         failedRequests = [];

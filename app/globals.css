@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@plugin 'tailwind-scrollbar';
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -93,6 +94,10 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+*{
+  @apply scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-950
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -142,4 +147,9 @@ button {
 
 ._container {
   @apply max-w-[1440px] mx-auto px-5 sm:px-10 md:px-15;
+}
+
+/* костыль пиздец */
+input[type="checkbox"]{
+  display: none;
 }

@@ -36,7 +36,7 @@ export default function RootLayout({
       <body
         className={`${
           (geistSans.variable, geistMono.variable, unbounded.variable)
-        } bg-neutral-950 text-white`}
+        } bg-neutral-950 text-white `}
       >
         {children}
         <Toaster theme="dark" richColors position="top-center" />

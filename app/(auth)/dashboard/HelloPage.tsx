@@ -13,9 +13,9 @@ const HelloPage = () => {
       animate={{
         y: 0,
         opacity: 1, 
-        transition: { duration: 1 },
+        transition: { duration: 0.5 },
       }}
-      className="w-full h-[calc(100%-64px)] flex justify-center items-center"
+      className="w-full h-[calc(100vh-105px)] flex justify-center items-center"
     >
       <section className="flex flex-col gap-5 justify-center text-center">
         <h1 className="font-unbounded font-medium md:text-3xl text-2xl">

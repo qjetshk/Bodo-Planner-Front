@@ -9,8 +9,6 @@ import Link from "next/link";
 import { useLoginMutation } from "@/store/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { SerializedError } from "@reduxjs/toolkit";
 
 type LoginRequest = Omit<RegisterLoginForm, "nickName">;
 

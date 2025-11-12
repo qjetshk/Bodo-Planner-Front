@@ -32,15 +32,11 @@ import { useRouter } from "next/navigation";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import Account from "./Account";
 import NotificationsModal from "./NotificationsModal";
+import { getAvatarFallback } from "@/utils/avatar-fallback.util";
 
 export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
 
-  const avatarFallback = `${user.nickName
-    .slice(0, 1)
-    .toLocaleLowerCase()}${user.nickName
-    .slice(user.nickName.length - 1, user.nickName.length)
-    .toLocaleLowerCase()}`;
 
   const [logout] = useLogoutMutation();
   const router = useRouter();
@@ -69,7 +65,7 @@ export function NavUser({ user }: { user: User }) {
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatarUrl} alt={user.nickName} />
                 <AvatarFallback className="rounded-lg">
-                  {avatarFallback}
+                  {getAvatarFallback()}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -90,7 +86,7 @@ export function NavUser({ user }: { user: User }) {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatarUrl} alt={user.nickName} />
                   <AvatarFallback className="rounded-lg">
-                    {avatarFallback}
+                    {getAvatarFallback()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">

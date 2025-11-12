@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import DashBoardHeader from "@/components/DashBoardHeader";
 import PrivateRoute from "./PrivateRoute";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const DashBoardLayout = ({
   children,
@@ -38,10 +39,12 @@ const DashBoardLayout = ({
       >
         <SidebarProvider>
           <AppSidebar />
-          <SidebarInset>
+          <SidebarInset className="flex flex-col h-screen">
             <DashBoardHeader />
             <Separator />
-            <section className="p-5 w-full h-full">{children}</section>
+            <ScrollArea className=" w-full h-full overflow-x-hidden flex-1 ">
+              <div className="p-5">{children}</div>
+            </ScrollArea>
           </SidebarInset>
         </SidebarProvider>
       </motion.section>

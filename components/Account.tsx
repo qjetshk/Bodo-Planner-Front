@@ -1,32 +1,14 @@
 "use client";
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+import { DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { User } from "@/types/auth.type";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { toast } from "sonner";
+import { copyToClipboard } from "@/utils/copy-to-clipboard.util";
+import { getAvatarFallback } from "@/utils/avatar-fallback.util";
 
 const Account = () => {
   const user_ = localStorage.getItem("user");
   const user: User = user_ ? JSON.parse(user_) : undefined;
-  const avatarFallback = `${user?.nickName
-    .slice(0, 1)
-    .toLocaleLowerCase()}${user?.nickName
-    .slice(user?.nickName?.length - 1)
-    .toLocaleLowerCase()}`;
-
-  const handleCopy = (
-    event: React.MouseEvent<HTMLSpanElement>,
-    text: string
-  ) => {
-    navigator.clipboard.writeText(text);
-    toast.success("Скопировано в буфер обмена!", { duration: 1000 });
-  };
 
   return (
     <DialogContent className="dark">
@@ -38,13 +20,13 @@ const Account = () => {
           <Avatar className="h-15 w-15 rounded-full dark">
             <AvatarImage src={user?.avatarUrl} alt={user?.nickName} />
             <AvatarFallback className="rounded-full text-lg">
-              {avatarFallback}
+              {getAvatarFallback()}
             </AvatarFallback>
           </Avatar>
           <div className="grid flex-1 text-left text-lg leading-tight">
             <span className="truncate font-medium">{`@${user?.nickName}`}</span>
             <span
-              onClick={(e) => handleCopy(e, user.email)}
+              onClick={(e) => copyToClipboard<HTMLSpanElement>(e, user.email)}
               className="text-sm text-neutral-600 cursor-pointer transition-colors hover:text-neutral-300"
             >
               {user?.email}
@@ -53,7 +35,9 @@ const Account = () => {
         </div>
         <div className="flex flex-col gap-1 justify-center">
           <span
-            onClick={(e) => handleCopy(e, user?.id.toString())}
+            onClick={(e) =>
+              copyToClipboard<HTMLSpanElement>(e, user?.id.toString())
+            }
             className="text-sm text-neutral-600 max-w-15 truncate cursor-pointer transition-colors hover:text-neutral-300"
           >
             id: {user?.id}
